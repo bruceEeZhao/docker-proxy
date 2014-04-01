@@ -3,8 +3,8 @@ package configuration
 
 import (
 	"fmt"
-	"github.com/astaxie/beego/config"
-	"log"
+	"github.com/astaxie/beego/config"    //采用github.com/astaxie的beego/config程序
+	"log"                                //日志文件
 )
 
 type WhitelistConfig struct {

@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-const BLOCK_TRESHOLD int = 10
+const BLOCK_TRESHOLD int = 10   //拦截次数
 
 var ipListCacheClient *redis.Client
 
@@ -32,11 +32,13 @@ func main() {
 					"The remote ip is in blacklist.")
 			} else if match == false {
 				blockedTimes, err := ipListCacheClient.Cmd("incr", ip).Int()
+                                //从ip记录里计算ip被拦截的次数
 				if err != nil {
 					log.Println(err)
 				}
 				log.Printf("Request blocked. IP: %s, Block times:%d", ip, blockedTimes)
-				if blockedTimes >= BLOCK_TRESHOLD {
+                                //记录下ip及被拦截的次数
+				if blockedTimes >= BLOCK_TRESHOLD {      //若拦截次数大于等于最大次数加入黑名单
 					configuration.GetBlacklistConfig().Add(ip)
 					configuration.SaveBlacklistConfig(configuration.GetBlacklistConfig())
 				}
