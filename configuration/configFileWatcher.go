@@ -30,13 +30,13 @@ func (cw *ConfigWatcher) StartWatch() {
 	go func() {
 		for {
 			select {
-			case ev := <-watcher.Event:
+			case ev := <-watcher.Event:       //捕捉到事件则记录
 				log.Println("event: ", ev)
 				//Add Handler
 				for _, h := range cw.handlers {
 					h.Handle(ev)
 				}
-			case err := <-watcher.Error:
+			case err := <-watcher.Error:      //捕捉到错误则记录
 				log.Println("error:", err)
 			}
 		}

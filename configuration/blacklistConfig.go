@@ -70,9 +70,9 @@ func (bc *BlacklistConfig) SaveToFile(filePath string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	jsoncontext := reg.ReplaceAllString(fmt.Sprint(bc.blacklist), template)
-	jsoncontext = strings.NewReplacer("map[", "", "]", "", " ", ",").Replace(jsoncontext)
-	jsoncontext = strings.NewReplacer("${blacklist}", jsoncontext).Replace(configTemplate)
+	jsoncontext := reg.ReplaceAllString(fmt.Sprint(bc.blacklist), template)   //在注册表中更新所有字符串（黑名单）
+	jsoncontext = strings.NewReplacer("map[", "", "]", "", " ", ",").Replace(jsoncontext)  
+	jsoncontext = strings.NewReplacer("${blacklist}", jsoncontext).Replace(configTemplate)  //用jsoncontext给黑名单更新
 	_, err = f.WriteString(jsoncontext)
 	if err != nil {
 		log.Fatal(err)
